@@ -10,11 +10,23 @@ import { User, UserRole, Company, Chat, Message, ScheduledMessage } from './type
 import { INITIAL_USERS, INITIAL_COMPANIES, INITIAL_CHATS, INITIAL_SCHEDULED_MESSAGES, generateId } from './services/mockStore';
 import { LogOut, MessageSquare, Users, Building2, Link as LinkIcon, Lock, Mail, ArrowRight, LayoutDashboard, Calendar, UserPlus, Phone, Briefcase, Calendar as CalendarIcon, Hash, Camera } from 'lucide-react';
 
-// Helper to safely parse JSON from localStorage
+// Helper to safely parse JSON from localStorage with Type Validation
 const safeLoad = <T,>(key: string, fallback: T): T => {
   try {
     const saved = localStorage.getItem(key);
-    return saved ? JSON.parse(saved) : fallback;
+    if (!saved) return fallback;
+    
+    const parsed = JSON.parse(saved);
+    
+    // Validate if the parsed data matches the expected type structure (basic check for Arrays)
+    if (Array.isArray(fallback)) {
+        if (!Array.isArray(parsed)) {
+            console.warn(`Data for ${key} is corrupted (expected Array). Resetting to default.`);
+            return fallback;
+        }
+    }
+    
+    return parsed;
   } catch (e) {
     console.error(`Error loading ${key} from localStorage:`, e);
     return fallback;

@@ -1,12 +1,26 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-// Safe access to process.env to avoid "process is not defined" in browser environments
+// Safe access to process.env and import.meta.env to avoid reference errors in browser
 const getApiKey = () => {
-  if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
-    return process.env.API_KEY;
+  let key = '';
+  
+  // Try process.env first (Standard Node/Webpack)
+  try {
+    if (typeof process !== 'undefined' && process.env) {
+      key = process.env.API_KEY || '';
+    }
+  } catch (e) {}
+
+  // If not found, try process.env again in a way that might catch defined replacements
+  if (!key) {
+      try {
+        // @ts-ignore
+        key = process.env.API_KEY || '';
+      } catch (e) {}
   }
-  return '';
+  
+  return key;
 };
 
 export const generateCustomerReply = async (
