@@ -17,8 +17,8 @@ export const generateCustomerReply = async (
   
   if (!apiKey) {
     // Return a generic message if IA is not configured, instead of a system error
-    console.warn("API Key Gemini não detectada.");
-    return "O assistente virtual está temporariamente indisponível.";
+    // Avoid console.warn to keep logs clean in production unless debugging
+    return "O assistente virtual está temporariamente indisponível (API Key não configurada).";
   }
 
   try {

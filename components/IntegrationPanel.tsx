@@ -24,12 +24,12 @@ export const IntegrationPanel: React.FC<Props> = ({ company, onUpdateConfig, onS
   "event": "messages.upsert",
   "data": {
     "key": {
-      "remoteJid": "5511900000000@s.whatsapp.net",
+      "remoteJid": "5511999999999@s.whatsapp.net",
       "fromMe": false
     },
-    "pushName": "Cliente Teste",
+    "pushName": "Cliente Visitante",
     "message": {
-      "conversation": "Olá, isso é um teste de integração."
+      "conversation": "Olá, gostaria de mais informações."
     }
   }
 }`);
