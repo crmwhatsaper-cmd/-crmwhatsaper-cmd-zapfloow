@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 
 // Safe access to process.env to avoid "process is not defined" in browser environments
@@ -15,8 +16,9 @@ export const generateCustomerReply = async (
   const apiKey = getApiKey();
   
   if (!apiKey) {
-    console.warn("No API Key provided for Gemini. Returning mock response.");
-    return "Olá! Isso é uma resposta automática (API Key não configurada no Vercel).";
+    // Return a generic message if IA is not configured, instead of a system error
+    console.warn("API Key Gemini não detectada.");
+    return "O assistente virtual está temporariamente indisponível.";
   }
 
   try {
@@ -44,6 +46,6 @@ export const generateCustomerReply = async (
     return response.text || "...";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "Desculpe, não entendi (Erro na IA).";
+    return "Desculpe, não entendi.";
   }
 };

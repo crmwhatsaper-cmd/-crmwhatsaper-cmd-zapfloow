@@ -19,17 +19,17 @@ export const IntegrationPanel: React.FC<Props> = ({ company, onUpdateConfig, onS
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  // Simulation State
+  // Simulation State - Generic Clean Data
   const [simulationJson, setSimulationJson] = useState(`{
   "event": "messages.upsert",
   "data": {
     "key": {
-      "remoteJid": "5511999991234@s.whatsapp.net",
+      "remoteJid": "5511900000000@s.whatsapp.net",
       "fromMe": false
     },
-    "pushName": "Novo Cliente de Teste",
+    "pushName": "Cliente Teste",
     "message": {
-      "conversation": "Olá, vi o anúncio e gostaria de saber o preço."
+      "conversation": "Olá, isso é um teste de integração."
     }
   }
 }`);
@@ -37,7 +37,7 @@ export const IntegrationPanel: React.FC<Props> = ({ company, onUpdateConfig, onS
   // URL Nativa do MicroSaaS para receber os dados da Evolution
   const webhookUrl = `https://api.zapflow.com.br/webhook/evolution/${company.id}`;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setSaved(false);
   };
@@ -111,7 +111,7 @@ export const IntegrationPanel: React.FC<Props> = ({ company, onUpdateConfig, onS
               <textarea
                 name="accessToken"
                 value={formData.accessToken}
-                onChange={(e) => handleChange(e as any)}
+                onChange={handleChange}
                 placeholder="Sua Global API Key da Evolution..."
                 rows={3}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none font-mono text-sm"
