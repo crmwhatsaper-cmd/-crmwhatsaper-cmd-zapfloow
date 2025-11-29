@@ -1,0 +1,7 @@
+{
+  "name": "ZapFlow - Multi-Agent WhatsApp SaaS",
+  "description": "A Micro-SaaS platform for multi-agent WhatsApp support via Meta API simulation. Features super admin controls, company team management (max 15 users), and a shared inbox powered by Gemini for customer simulation.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
